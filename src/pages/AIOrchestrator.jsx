@@ -105,7 +105,7 @@ function AIOrchestrator() {
       </div>
       
       {/* Main Grid */}
-      <div className="grid md:grid-cols-3 gap-8 mb-8">
+      <div className="grid md:grid-cols-3 gap-8 mb-8"> -
         {/* Workflow Visualization */}
         <div className="md:col-span-2">
           <div className="card p-6 h-full">

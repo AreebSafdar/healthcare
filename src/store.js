@@ -75,6 +75,7 @@ export const useAppStore = create((set, get) => ({
       const appointmentTime = new Date(now.getTime() + (i * 2) * 60 * 60 * 1000)
       const status = statuses[Math.floor(Math.random() * statuses.length)]
       const copay = status === 'Verified' ? Math.floor(Math.random() * 100) + 20 : null
+      const appointmentStatus = ['Upcoming', 'Completed', 'Blocked'][Math.floor(Math.random() * 3)]
       
       const appointment = {
         id: `apt-${i + 1}`,
@@ -84,8 +85,10 @@ export const useAppStore = create((set, get) => ({
         provider: 'Dr. ' + ['Smith', 'Johnson', 'Williams', 'Brown'][i % 4],
         insurance: insuranceProviders[i % insuranceProviders.length],
         insuranceStatus: status,
+        appointmentStatus: appointmentStatus,
         copay,
         location: ['Room 101', 'Room 202', 'Room 303'][i % 3],
+        clinic: ['Cardiology Clinic', 'General Practice', 'Surgery Department'][i % 3],
         type: ['Checkup', 'Follow-up', 'Consultation', 'Procedure'][i % 4],
         lastVerified: new Date(now.getTime() - Math.random() * 7 * 24 * 60 * 60 * 1000),
         notes: ''

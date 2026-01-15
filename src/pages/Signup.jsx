@@ -1,15 +1,13 @@
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuthStore } from '../store'
-import { Mail, Lock, Building2, User, Loader, Activity, CheckCircle, ChevronRight } from 'lucide-react'
+import { Mail, Lock, User, Loader, Activity, CheckCircle, ChevronRight } from 'lucide-react'
 
 function Signup() {
-  const [clinicName, setClinicName] = useState('')
   const [userName, setUserName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [role, setRole] = useState('staff')
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
   const navigate = useNavigate()
@@ -19,7 +17,7 @@ function Signup() {
     e.preventDefault()
     setError('')
     
-    if (!clinicName || !userName || !email || !password || !confirmPassword) {
+    if (!userName || !email || !password || !confirmPassword) {
       setError('Please fill in all fields')
       return
     }
@@ -34,7 +32,7 @@ function Signup() {
       return
     }
     
-    signup(clinicName, userName, email, password, role)
+    signup('', userName, email, password, 'staff')
     setSuccess(true)
     
     setTimeout(() => {
@@ -122,23 +120,6 @@ function Signup() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">
-                Clinic Name
-              </label>
-              <div className="relative group">
-                <Building2 className="absolute left-4 top-4 text-slate-400 group-focus-within:text-healthcare-blue transition-colors" size={20} />
-                <input
-                  type="text"
-                  value={clinicName}
-                  onChange={(e) => setClinicName(e.target.value)}
-                  className="input-field pl-12 text-base"
-                  placeholder="Your Clinic Name"
-                  disabled={isLoading}
-                />
-              </div>
-            </div>
-            
-            <div>
-              <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">
                 Your Name
               </label>
               <div className="relative group">
@@ -202,24 +183,6 @@ function Signup() {
                   placeholder="••••••••"
                   disabled={isLoading}
                 />
-              </div>
-            </div>
-            
-            <div>
-              <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">
-                Role
-              </label>
-              <div className="relative group">
-                <select
-                  value={role}
-                  onChange={(e) => setRole(e.target.value)}
-                  className="input-field text-base appearance-none"
-                  disabled={isLoading}
-                >
-                  <option value="staff">Staff Member</option>
-                  <option value="admin">Administrator</option>
-                </select>
-                <ChevronRight className="absolute right-4 top-4 text-slate-400 group-focus-within:text-healthcare-blue pointer-events-none rotate-90 transition-colors" size={18} />
               </div>
             </div>
             

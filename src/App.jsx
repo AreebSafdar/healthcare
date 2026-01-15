@@ -4,6 +4,7 @@ import { useAuthStore, useAppStore } from './store'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Dashboard from './pages/Dashboard'
+import Appointments from './pages/Appointments'
 import PatientDetail from './pages/PatientDetail'
 import AppointmentDetail from './pages/AppointmentDetail'
 import AlertsCenter from './pages/AlertsCenter'
@@ -37,6 +38,7 @@ function App() {
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
           <Route element={<Layout />}>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/appointments" element={<Appointments />} />
             <Route path="/appointment/:id" element={<AppointmentDetail />} />
             <Route path="/patient/:id" element={<PatientDetail />} />
             <Route path="/alerts" element={<AlertsCenter />} />

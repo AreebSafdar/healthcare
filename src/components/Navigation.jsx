@@ -10,7 +10,8 @@ import {
   Shield,
   Moon,
   Sun,
-  Activity
+  Activity,
+  Calendar
 } from 'lucide-react'
 
 function Navigation({ isOpen, onClose }) {
@@ -24,6 +25,7 @@ function Navigation({ isOpen, onClose }) {
   
   const menuItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/' },
+    { icon: Calendar, label: 'Appointments', path: '/appointments' },
     { icon: Bell, label: 'Alerts', path: '/alerts' },
     { icon: Shield, label: 'Payer Simulator', path: '/payer-simulator' },
     { icon: Zap, label: 'AI Orchestrator', path: '/ai-orchestrator' },
