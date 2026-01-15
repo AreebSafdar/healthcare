@@ -21,7 +21,7 @@ function App() {
   useEffect(() => {
     // Initialize mock data
     initializeMockData()
-    
+
     // Set initial theme
     if (theme === 'dark') {
       document.documentElement.classList.add('dark')
@@ -33,7 +33,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        
+
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
           <Route element={<Layout />}>
             <Route path="/" element={<Dashboard />} />
@@ -45,7 +45,7 @@ function App() {
             <Route path="/settings" element={<Settings />} />
           </Route>
         </Route>
-        
+
         <Route path="*" element={<Navigate to={isAuthenticated ? "/" : "/login"} replace />} />
       </Routes>
     </Router>
