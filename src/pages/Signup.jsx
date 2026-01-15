@@ -8,6 +8,7 @@ function Signup() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [role, setRole] = useState('front-desk')
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
   const navigate = useNavigate()
@@ -32,7 +33,7 @@ function Signup() {
       return
     }
     
-    signup('', userName, email, password, 'staff')
+    signup('', userName, email, password, role)
     setSuccess(true)
     
     setTimeout(() => {
@@ -78,16 +79,16 @@ function Signup() {
         
         {/* Middle - Main Message */}
         <div className="relative z-10">
-          <h2 className="text-5xl font-bold mb-6 leading-tight">Join 500+ Healthcare Providers</h2>
-          <p className="text-teal-100 text-lg mb-8 leading-relaxed">Start automating your insurance verification process today. No credit card required for the trial.</p>
+          <h2 className="text-5xl font-bold mb-6 leading-tight">Clinic Staff Portal</h2>
+          <p className="text-teal-100 text-lg mb-8 leading-relaxed">Join your clinic's insurance verification system today. Streamline patient check-ins and insurance verification in minutes.</p>
           
           {/* Features */}
           <div className="space-y-4">
             {[
-              { icon: '✓', text: '14-day free trial included' },
-              { icon: '✓', text: 'No setup fees or hidden costs' },
-              { icon: '✓', text: 'Dedicated onboarding support' },
-              { icon: '✓', text: '24/7 customer support' }
+              { icon: '✓', text: 'Quick patient insurance verification' },
+              { icon: '✓', text: 'Real-time eligibility checks' },
+              { icon: '✓', text: 'Integrated appointment management' },
+              { icon: '✓', text: '24/7 system access' }
             ].map((item, idx) => (
               <div key={idx} className="flex items-center gap-3 text-teal-100">
                 <span className="w-6 h-6 rounded-full bg-white/30 flex items-center justify-center text-sm font-bold">{item.icon}</span>
@@ -107,8 +108,8 @@ function Signup() {
       <div className="w-full lg:w-1/2 flex items-center justify-center p-6 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
         <div className="w-full max-w-md">
           <div className="mb-8">
-            <h2 className="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-2">Create your account</h2>
-            <p className="text-slate-600 dark:text-slate-400 text-lg">Get started with insurance verification</p>
+            <h2 className="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-2">Create Staff Account</h2>
+            <p className="text-slate-600 dark:text-slate-400 text-lg">Join your clinic's insurance verification system</p>
           </div>
           
           {error && (
@@ -183,6 +184,23 @@ function Signup() {
                   placeholder="••••••••"
                   disabled={isLoading}
                 />
+              </div>
+            </div>
+            
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">
+                Staff Role *
+              </label>
+              <div className="relative group">
+                <select
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                  className="input-field text-base appearance-none w-full"
+                >
+                  <option value="front-desk">Front Desk Staff</option>
+                  <option value="billing">Billing Staff</option>
+                </select>
+                <ChevronRight className="absolute right-4 top-4 text-slate-400 group-focus-within:text-healthcare-blue pointer-events-none rotate-90 transition-colors" size={18} />
               </div>
             </div>
             

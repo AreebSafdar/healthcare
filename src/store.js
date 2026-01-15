@@ -10,12 +10,20 @@ export const useAuthStore = create((set) => ({
     set({ isLoading: true, error: null })
     setTimeout(() => {
       if (email && password && email.includes('@')) {
+        // Determine role based on email pattern
+        let role = 'front-desk'
+        if (email.toLowerCase().includes('admin')) {
+          role = 'admin'
+        } else if (email.toLowerCase().includes('billing')) {
+          role = 'billing'
+        }
+        
         set({
           user: {
             id: '1',
             email,
             name: email.split('@')[0],
-            role: 'admin',
+            role: role,
             clinic: 'City Medical Clinic'
           },
           isAuthenticated: true,
@@ -39,8 +47,8 @@ export const useAuthStore = create((set) => ({
           id: '1',
           email,
           name: userName,
-          role: role || 'staff',
-          clinic: clinicName
+          role: role || 'front-desk',
+          clinic: clinicName || 'City Medical Clinic'
         },
         isAuthenticated: true,
         isLoading: false,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuthStore, useAppStore } from '../store'
 import {
   LayoutDashboard,
@@ -16,6 +16,7 @@ import {
 
 function Navigation({ isOpen, onClose }) {
   const location = useLocation()
+  const navigate = useNavigate()
   const logout = useAuthStore(state => state.logout)
   const user = useAuthStore(state => state.user)
   const theme = useAppStore(state => state.theme)
@@ -49,7 +50,7 @@ function Navigation({ isOpen, onClose }) {
       `}>
         {/* Logo/Header */}
         <div className="p-6 border-b border-slate-200 dark:border-slate-700">
-          <div className="flex items-center gap-2 mb-2">
+          <div className="flex items-center gap-2 mb-4">
             <div className="w-10 h-10 bg-healthcare-blue rounded-lg flex items-center justify-center">
               <Activity className="w-6 h-6 text-white" />
             </div>
@@ -58,6 +59,27 @@ function Navigation({ isOpen, onClose }) {
               <p className="text-xs text-slate-600 dark:text-slate-400">Dashboard Pro</p>
             </div>
           </div>
+          
+          {/* User Profile Section */}
+          {user && (
+            <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+              <div className="flex items-center gap-2 mb-2">
+                <img 
+                  src={`https://ui-avatars.com/api/?name=${user?.name}&background=0F6BFF&color=fff&size=32`}
+                  alt="Avatar"
+                  className="w-8 h-8 rounded-full"
+                />
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-bold text-slate-900 dark:text-slate-100 truncate">{user?.name}</p>
+                  <p className="text-xs text-slate-600 dark:text-slate-400">
+                    {user?.role === 'admin' ? 'Admin' :
+                     user?.role === 'billing' ? 'Billing' :
+                     'Front Desk'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
         
         {/* Menu Items */}
@@ -106,6 +128,7 @@ function Navigation({ isOpen, onClose }) {
             onClick={() => {
               logout()
               onClose()
+              navigate('/login')
             }}
             className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
           >
