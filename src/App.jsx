@@ -3,6 +3,10 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { useAuthStore, useAppStore } from './store'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import StaffSignup from './pages/StaffSignup'
+import PatientLogin from './pages/PatientLogin'
+import PatientSignup from './pages/PatientSignup'
+import PatientDashboard from './pages/PatientDashboard'
 import Dashboard from './pages/Dashboard'
 import Appointments from './pages/Appointments'
 import PatientDetail from './pages/PatientDetail'
@@ -32,10 +36,20 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/* Staff Portal */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/staff-signup" element={<StaffSignup />} />
+
+        {/* Patient Portal */}
+        <Route path="/patient-login" element={<PatientLogin />} />
+        <Route path="/patient-signup" element={<PatientSignup />} />
 
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
+          {/* Patient Routes */}
+          <Route path="/patient-dashboard" element={<PatientDashboard />} />
+
+          {/* Staff Routes */}
           <Route element={<Layout />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/appointments" element={<Appointments />} />

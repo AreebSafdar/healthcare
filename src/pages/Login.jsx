@@ -142,12 +142,22 @@ function Login() {
           </form>
           
           <div className="mt-8 pt-8 border-t border-slate-200 dark:border-slate-700">
-            <p className="text-center text-slate-600 dark:text-slate-400">
-              Don't have an account?{' '}
-              <Link to="/signup" className="text-healthcare-blue font-semibold hover:underline">
-                Sign up
+            <p className="text-center text-slate-600 dark:text-slate-400 mb-4">
+              Don't have a staff account?{' '}
+              <Link to="/staff-signup" className="text-healthcare-blue font-semibold hover:underline">
+                Sign up here
               </Link>
             </p>
+          </div>
+
+          <div className="mt-4">
+            <p className="text-center text-slate-500 dark:text-slate-400 text-sm mb-3">Are you a patient?</p>
+            <Link
+              to="/patient-login"
+              className="block w-full text-center px-4 py-2 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-medium rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+            >
+              Patient Portal
+            </Link>
           </div>
           
           <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">

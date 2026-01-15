@@ -59,6 +59,56 @@ export const useAuthStore = create((set) => ({
   
   logout: () => {
     set({ user: null, isAuthenticated: false })
+  },
+  
+  patientLogin: (email, password) => {
+    set({ isLoading: true, error: null })
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        if (email && password && email.includes('@')) {
+          set({
+            user: {
+              id: 'patient-' + Math.random().toString(36).substr(2, 9),
+              email,
+              name: email.split('@')[0],
+              role: 'patient',
+              phone: '(555) 123-4567'
+            },
+            isAuthenticated: true,
+            isLoading: false,
+            error: null
+          })
+          resolve()
+        } else {
+          set({
+            error: 'Invalid email or password',
+            isLoading: false
+          })
+        }
+      }, 1000)
+    })
+  },
+  
+  patientSignup: (name, email, password, phone, dateOfBirth) => {
+    set({ isLoading: true, error: null })
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        set({
+          user: {
+            id: 'patient-' + Math.random().toString(36).substr(2, 9),
+            email,
+            name,
+            role: 'patient',
+            phone,
+            dateOfBirth
+          },
+          isAuthenticated: true,
+          isLoading: false,
+          error: null
+        })
+        resolve()
+      }, 1000)
+    })
   }
 }))
 
