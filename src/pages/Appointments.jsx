@@ -21,11 +21,11 @@ function Appointments() {
     clinic: 'Cardiology Clinic',
     location: 'Room 101'
   })
-  
+
   const filteredAppointments = useMemo(() => {
     const now = new Date()
     const endTime = new Date(now.getTime() + timeRange * 60 * 60 * 1000)
-    
+
     let filtered = appointments
       .filter(apt => apt.dateTime >= now && apt.dateTime <= endTime)
       .filter(apt => {
@@ -37,7 +37,7 @@ function Appointments() {
         }
         return true
       })
-    
+
     // Sort appointments
     if (sortBy === 'date') {
       filtered.sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime))
@@ -47,41 +47,41 @@ function Appointments() {
       const statusOrder = { 'Verified': 0, 'Needs Review': 1, 'Expired': 2 }
       filtered.sort((a, b) => statusOrder[a.insuranceStatus] - statusOrder[b.insuranceStatus])
     }
-    
+
     return filtered
   }, [appointments, searchTerm, statusFilter, timeRange, sortBy])
-  
+
   const stats = {
     total: filteredAppointments.length,
     verified: filteredAppointments.filter(a => a.insuranceStatus === 'Verified').length,
     needsReview: filteredAppointments.filter(a => a.insuranceStatus === 'Needs Review').length,
     expired: filteredAppointments.filter(a => a.insuranceStatus === 'Expired').length,
   }
-  
+
   const getStatusIcon = (status) => {
     if (status === 'Verified') return <CheckCircle size={16} className="text-green-600 dark:text-green-400" />
     if (status === 'Needs Review') return <AlertCircle size={16} className="text-yellow-600 dark:text-yellow-400" />
     return <AlertCircle size={16} className="text-red-600 dark:text-red-400" />
   }
-  
+
   const getAppointmentStatusIcon = (status) => {
     if (status === 'Upcoming') return <Clock size={16} className="text-blue-600 dark:text-blue-400" />
     if (status === 'Completed') return <CheckCircle size={16} className="text-green-600 dark:text-green-400" />
     return <AlertCircle size={16} className="text-red-600 dark:text-red-400" />
   }
-  
+
   const getAppointmentStatusColor = (status) => {
     if (status === 'Upcoming') return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100'
     if (status === 'Completed') return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100'
     return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100'
   }
-  
+
   const getStatusBadgeColor = (status) => {
     if (status === 'Verified') return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100'
     if (status === 'Needs Review') return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100'
     return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100'
   }
-  
+
   return (
     <div className="p-4 md:p-8">
       {/* Header with gradient background */}
@@ -93,13 +93,13 @@ function Appointments() {
             </h1>
             <p className="text-slate-600 dark:text-slate-400 text-lg">Manage and verify appointments with insurance information</p>
           </div>
-          <button 
+          <button
             onClick={() => setShowNewAppointmentModal(true)}
             className="flex md:hidden items-center justify-center gap-2 px-4 py-3 bg-healthcare-blue text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold flex-shrink-0">
             <Plus size={20} />
             <span className="hidden sm:inline">New</span>
           </button>
-          <button 
+          <button
             onClick={() => setShowNewAppointmentModal(true)}
             className="hidden md:flex items-center gap-2 px-6 py-3 bg-healthcare-blue text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold">
             <Plus size={20} />
@@ -107,7 +107,7 @@ function Appointments() {
           </button>
         </div>
       </div>
-      
+
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
         <StatCard
@@ -135,7 +135,7 @@ function Appointments() {
           color="from-red-500 to-red-600"
         />
       </div>
-      
+
       {/* Filters and Search */}
       <div className="card p-6 mb-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -155,7 +155,7 @@ function Appointments() {
               />
             </div>
           </div>
-          
+
           {/* Status Filter */}
           <div>
             <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
@@ -172,7 +172,7 @@ function Appointments() {
               <option value="Expired">Expired</option>
             </select>
           </div>
-          
+
           {/* Time Range */}
           <div>
             <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
@@ -191,7 +191,7 @@ function Appointments() {
             </select>
           </div>
         </div>
-        
+
         {/* Sort Options */}
         <div className="mt-4 flex items-center gap-2">
           <Filter size={18} className="text-slate-600 dark:text-slate-400" />
@@ -201,11 +201,10 @@ function Appointments() {
               <button
                 key={option}
                 onClick={() => setSortBy(option)}
-                className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
-                  sortBy === option
+                className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${sortBy === option
                     ? 'bg-healthcare-blue text-white'
                     : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
-                }`}
+                  }`}
               >
                 {option.charAt(0).toUpperCase() + option.slice(1)}
               </button>
@@ -213,7 +212,7 @@ function Appointments() {
           </div>
         </div>
       </div>
-      
+
       {/* Appointments Cards Grid */}
       <div className="space-y-4">
         {filteredAppointments.length === 0 ? (
@@ -236,14 +235,14 @@ function Appointments() {
                     {getAppointmentStatusIcon(apt.appointmentStatus)}
                   </span>
                 </div>
-                
+
                 {/* Patient Info */}
                 <div className="mb-4 pb-4 border-b border-slate-200 dark:border-slate-700">
                   <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">Patient</p>
                   <p className="font-semibold text-slate-900 dark:text-slate-100">{apt.patientName}</p>
                   <p className="text-xs text-slate-500 dark:text-slate-500">{apt.patientId}</p>
                 </div>
-                
+
                 {/* Date & Time */}
                 <div className="mb-4 flex items-center gap-2">
                   <Clock size={16} className="text-healthcare-blue flex-shrink-0" />
@@ -252,7 +251,7 @@ function Appointments() {
                     <p className="font-semibold text-slate-900 dark:text-slate-100 text-sm">{formatAppointmentTime(apt.dateTime)}</p>
                   </div>
                 </div>
-                
+
                 {/* Clinic & Location */}
                 <div className="mb-4 flex items-start gap-2">
                   <Building2 size={16} className="text-healthcare-blue flex-shrink-0 mt-0.5" />
@@ -262,7 +261,7 @@ function Appointments() {
                     <p className="text-xs text-slate-500 dark:text-slate-500">{apt.location}</p>
                   </div>
                 </div>
-                
+
                 {/* Status Badges */}
                 <div className="mb-4 flex items-center gap-2">
                   <div className="flex-1">
@@ -273,7 +272,7 @@ function Appointments() {
                     </span>
                   </div>
                 </div>
-                
+
                 {/* Insurance Status */}
                 <div className="mb-4 pb-4 border-b border-slate-200 dark:border-slate-700">
                   <p className="text-xs text-slate-600 dark:text-slate-400 mb-1">Insurance Status</p>
@@ -282,7 +281,7 @@ function Appointments() {
                     {apt.insuranceStatus}
                   </span>
                 </div>
-                
+
                 {/* View Button */}
                 <Link
                   to={`/appointment/${apt.id}`}
@@ -296,7 +295,7 @@ function Appointments() {
           </div>
         )}
       </div>
-      
+
       {/* New Appointment Modal */}
       {showNewAppointmentModal && (
         <NewAppointmentModal
@@ -317,12 +316,12 @@ function NewAppointmentModal({ isOpen, onClose, formData, setFormData }) {
     console.log('New appointment:', formData)
     onClose()
   }
-  
+
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
   }
-  
+
   return (
     <>
       {/* Overlay */}
@@ -330,7 +329,7 @@ function NewAppointmentModal({ isOpen, onClose, formData, setFormData }) {
         className="fixed inset-0 bg-black/50 z-40 transition-opacity"
         onClick={onClose}
       />
-      
+
       {/* Modal */}
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
@@ -344,7 +343,7 @@ function NewAppointmentModal({ isOpen, onClose, formData, setFormData }) {
               ✕
             </button>
           </div>
-          
+
           {/* Form Content */}
           <form onSubmit={handleSubmit} className="p-6 space-y-6">
             {/* Patient Details Section */}
@@ -365,7 +364,7 @@ function NewAppointmentModal({ isOpen, onClose, formData, setFormData }) {
                     required
                   />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                     Email Address *
@@ -380,7 +379,7 @@ function NewAppointmentModal({ isOpen, onClose, formData, setFormData }) {
                     required
                   />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                     Phone Number *
@@ -395,7 +394,7 @@ function NewAppointmentModal({ isOpen, onClose, formData, setFormData }) {
                     required
                   />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                     Date of Birth *
@@ -411,7 +410,7 @@ function NewAppointmentModal({ isOpen, onClose, formData, setFormData }) {
                 </div>
               </div>
             </div>
-            
+
             {/* Appointment Details Section */}
             <div>
               <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4">Appointment Details</h3>
@@ -429,7 +428,7 @@ function NewAppointmentModal({ isOpen, onClose, formData, setFormData }) {
                     required
                   />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                     Appointment Type *
@@ -446,7 +445,7 @@ function NewAppointmentModal({ isOpen, onClose, formData, setFormData }) {
                     <option value="Procedure">Procedure</option>
                   </select>
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                     Clinic / Department *
@@ -464,7 +463,7 @@ function NewAppointmentModal({ isOpen, onClose, formData, setFormData }) {
                     <option value="Neurology">Neurology</option>
                   </select>
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                     Room / Location *
@@ -484,7 +483,7 @@ function NewAppointmentModal({ isOpen, onClose, formData, setFormData }) {
                 </div>
               </div>
             </div>
-            
+
             {/* Form Actions */}
             <div className="flex gap-4 pt-6 border-t border-slate-200 dark:border-slate-700">
               <button
@@ -505,7 +504,7 @@ function NewAppointmentModal({ isOpen, onClose, formData, setFormData }) {
           </form>
         </div>
       </div>
-    </>  )
+    </>)
 }
 
 function StatCard({ label, value, icon: Icon, color }) {
